@@ -1,12 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Ambev.DeveloperEvaluation.Application.Users.GetUser;
+using FluentValidation;
 
 namespace Ambev.DeveloperEvaluation.Application.Products.GetProduct
 {
-    internal class GetProductValidator
+    public class GetProductValidator : AbstractValidator<GetProductCommand>
     {
+        /// <summary>
+        /// Initializes validation rules for GetUserCommand
+        /// </summary>
+        public GetProductValidator()
+        {
+            RuleFor(x => x.Id)
+                .NotEmpty()
+                .WithMessage("User ID is required");
+        }
     }
 }
+

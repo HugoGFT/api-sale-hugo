@@ -1,5 +1,3 @@
-using Ambev.DeveloperEvaluation.Domain.Enums;
-
 namespace Ambev.DeveloperEvaluation.WebApi.Features.Products.UpdateProduct;
 
 /// <summary>
@@ -10,20 +8,13 @@ public class UpdateProductResponse
     /// <summary>
     /// The unique identifier of the Update Product
     /// </summary>
-    public Guid Id { get; set; }
+    public int Id { get; set; }
 
-    /// <summary>
-    /// The Product's full name
-    /// </summary>
-    public string Name { get; set; } = string.Empty;
-
-    /// <summary>
-    /// The Product's email address
-    /// </summary>
-    public string Email { get; set; } = string.Empty;
-
-    /// <summary>
-    /// The Product's phone number
-    /// </summary>
-    public string Phone { get; set; } = string.Empty;
+    public string Title { get; set; } = string.Empty;
+    public decimal Price { get; set; }
+    public string Description { get; set; } = string.Empty;
+    public string Category { get; set; } = string.Empty;
+    public string Image { get; set; } = string.Empty;
+    public decimal Rate { get; set; }
+    public int Count { get; set; }
 }

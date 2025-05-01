@@ -1,5 +1,4 @@
-﻿using Ambev.DeveloperEvaluation.Domain.Enums;
-using Ambev.DeveloperEvaluation.Domain.Validation;
+﻿using Ambev.DeveloperEvaluation.Domain.Validation;
 using FluentValidation;
 
 namespace Ambev.DeveloperEvaluation.WebApi.Features.Products.CreateProduct;
@@ -14,18 +13,39 @@ public class CreateProductRequestValidator : AbstractValidator<CreateProductRequ
     /// </summary>
     /// <remarks>
     /// Validation rules include:
-    /// - Email: Must be valid format (using EmailValidator)
-    /// - Productname: Required, length between 3 and 50 characters
-    /// - Password: Must meet security requirements (using PasswordValidator)
-    /// - Phone: Must match international format (+X XXXXXXXXXX)
-    /// - Status: Cannot be Unknown
-    /// - Role: Cannot be None
+    /// - Title: Required, length between 3 and 100 characters
+    /// - Price: Must be greater than 0
+    /// - Description: Optional, but if provided, must be at least 10 characters
+    /// - Category: Required, length between 3 and 50 characters
+    /// - Image: Optional, but if provided, must be a valid URL
+    /// - Rate: Must be between 0 and 5
+    /// - Count: Must be a non-negative integer
     /// </remarks>
     public CreateProductRequestValidator()
     {
-        RuleFor(Product => Product.Email).SetValidator(new EmailValidator());
-        RuleFor(Product => Product.Productname).NotEmpty().Length(3, 50);
-        RuleFor(Product => Product.Password).SetValidator(new PasswordValidator());
-        RuleFor(Product => Product.Phone).Matches(@"^\+?[1-9]\d{1,14}$");
+        RuleFor(x => x.Title)
+            .NotEmpty().WithMessage("Title is required.")
+            .Length(3, 100).WithMessage("Title must be between 3 and 100 characters.");
+
+        RuleFor(x => x.Price)
+            .GreaterThan(0).WithMessage("Price must be greater than 0.");
+
+        RuleFor(x => x.Description)
+            .MinimumLength(10).When(x => !string.IsNullOrEmpty(x.Description))
+            .WithMessage("Description must be at least 10 characters if provided.");
+
+        RuleFor(x => x.Category)
+            .NotEmpty().WithMessage("Category is required.")
+            .Length(3, 50).WithMessage("Category must be between 3 and 50 characters.");
+
+        RuleFor(x => x.Image)
+            .Must(uri => Uri.TryCreate(uri, UriKind.Absolute, out _)).When(x => !string.IsNullOrEmpty(x.Image))
+            .WithMessage("Image must be a valid URL if provided.");
+
+        RuleFor(x => x.Rate)
+            .InclusiveBetween(0, 5).WithMessage("Rate must be between 0 and 5.");
+
+        RuleFor(x => x.Count)
+            .GreaterThanOrEqualTo(0).WithMessage("Count must be a non-negative integer.");
     }
 }

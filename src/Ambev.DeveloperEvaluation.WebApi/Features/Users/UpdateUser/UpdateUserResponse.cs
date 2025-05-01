@@ -1,3 +1,4 @@
+using Ambev.DeveloperEvaluation.Domain.Dto.UserDto;
 using Ambev.DeveloperEvaluation.Domain.Enums;
 
 namespace Ambev.DeveloperEvaluation.WebApi.Features.Users.UpdateUser;
@@ -10,12 +11,7 @@ public class UpdateUserResponse
     /// <summary>
     /// The unique identifier of the created user
     /// </summary>
-    public Guid Id { get; set; }
-
-    /// <summary>
-    /// The user's full name
-    /// </summary>
-    public string Name { get; set; } = string.Empty;
+    public int Id { get; set; }
 
     /// <summary>
     /// The user's email address
@@ -36,4 +32,6 @@ public class UpdateUserResponse
     /// The current status of the user
     /// </summary>
     public UserStatus Status { get; set; }
+    public NameDto Name { get; set; } = new NameDto();
+    public AddressDto Address { get; set; } = new AddressDto();
 }

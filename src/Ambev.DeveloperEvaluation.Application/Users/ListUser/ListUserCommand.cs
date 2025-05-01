@@ -1,16 +1,10 @@
-﻿using Ambev.DeveloperEvaluation.Application.Users.GetUser;
-using MediatR;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using MediatR;
 
 namespace Ambev.DeveloperEvaluation.Application.Users.ListUser
 {
     public class ListUserCommand : IRequest<ListUserResult>
     {
-        public ListUserCommand(int page, int size, string order) 
+        public ListUserCommand(int page, int size, string order)
         {
             Page = page;
             PageSize = size;

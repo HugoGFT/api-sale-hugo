@@ -1,12 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Ambev.DeveloperEvaluation.Application.Products.DeleteProduct;
+using FluentValidation;
 
 namespace Ambev.DeveloperEvaluation.Application.Products.DeleteProduct
 {
-    internal class DeleteProductValidator
+    public class DeleteProductValidator : AbstractValidator<DeleteProductCommand>
     {
+        /// <summary>
+        /// Initializes validation rules for DeleteProductCommand
+        /// </summary>
+        public DeleteProductValidator()
+        {
+            RuleFor(x => x.Id)
+                .NotEmpty()
+                .WithMessage("Product ID is required");
+        }
     }
 }

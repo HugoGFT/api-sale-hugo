@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Ambev.DeveloperEvaluation.Application.Carts.ListCart;
+using MediatR;
 
 namespace Ambev.DeveloperEvaluation.Application.Carts.GetCart
 {
-    internal class GetCartCommand
+    public class GetCartCommand : IRequest<GetCartResult>
     {
+        public int Id { get; set; }
     }
 }

@@ -1,6 +1,4 @@
-﻿using Ambev.DeveloperEvaluation.Domain.Enums;
-
-namespace Ambev.DeveloperEvaluation.WebApi.Features.Products.ListProduct;
+﻿namespace Ambev.DeveloperEvaluation.WebApi.Features.Products.ListProduct;
 
 /// <summary>
 /// Represents a request to list products in the system.

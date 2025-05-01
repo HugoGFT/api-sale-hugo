@@ -1,4 +1,4 @@
-using Ambev.DeveloperEvaluation.Domain.Enums;
+using Ambev.DeveloperEvaluation.WebApi.Features.Carts.GetCart;
 
 namespace Ambev.DeveloperEvaluation.WebApi.Features.Carts.ListCart;
 
@@ -7,23 +7,8 @@ namespace Ambev.DeveloperEvaluation.WebApi.Features.Carts.ListCart;
 /// </summary>
 public class ListCartResponse
 {
-    /// <summary>
-    /// The unique identifier of the created Cart
-    /// </summary>
-    public Guid Id { get; set; }
-
-    /// <summary>
-    /// The Cart's full name
-    /// </summary>
-    public string Name { get; set; } = string.Empty;
-
-    /// <summary>
-    /// The Cart's email address
-    /// </summary>
-    public string Email { get; set; } = string.Empty;
-
-    /// <summary>
-    /// The Cart's phone number
-    /// </summary>
-    public string Phone { get; set; } = string.Empty;
+    public int TotalItems { get; set; }
+    public IEnumerable<GetCartResponse> Data { get; set; } = new List<GetCartResponse>();
+    public int TotalPages { get; set; }
+    public int CurrentPage { get; set; }
 }

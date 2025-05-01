@@ -19,6 +19,9 @@ public class User : BaseEntity, IUser
     /// </summary>
     public string Username { get; set; } = string.Empty;
 
+    public string Firstname { get; set; } = string.Empty;
+    public string Lastname { get; set; } = string.Empty;
+
     /// <summary>
     /// Gets the user's email address.
     /// Must be a valid email format and is used as a unique identifier for authentication.
@@ -29,7 +32,7 @@ public class User : BaseEntity, IUser
     /// Gets the user's phone number.
     /// Must be a valid phone number format following the pattern (XX) XXXXX-XXXX.
     /// </summary>
-    public string Phone { get; set; } = string.Empty ;
+    public string Phone { get; set; } = string.Empty;
 
     /// <summary>
     /// Gets the hashed password for authentication.
@@ -38,11 +41,18 @@ public class User : BaseEntity, IUser
     /// </summary>
     public string Password { get; set; } = string.Empty;
 
+    public string? Street { get; set; } = string.Empty;
+    public string? City { get; set; } = string.Empty;
+    public int? Number { get; set; }
+    public string? ZipCode { get; set; } = string.Empty;
+    public string? Lat { get; set; } = string.Empty;
+    public string? Long { get; set; } = string.Empty;
+
     /// <summary>
     /// Gets the user's role in the system.
     /// Determines the user's permissions and access levels.
     /// </summary>
-    public UserRole Role { get;     set; }
+    public UserRole Role { get; set; }
 
     /// <summary>
     /// Gets the user's current status.
@@ -61,7 +71,7 @@ public class User : BaseEntity, IUser
     public DateTime? UpdatedAt { get; set; }
 
     /// <summary>
-    /// Gets the unique identifier of the user.
+    /// Gets the identifier of the user.
     /// </summary>
     /// <returns>The user's ID as a string.</returns>
     string IUser.Id => Id.ToString();

@@ -12,7 +12,7 @@ public class DeleteProductProfile : Profile
     /// </summary>
     public DeleteProductProfile()
     {
-        CreateMap<Guid, Application.Users.DeleteUser.DeleteUserCommand>()
+        CreateMap<int, Application.Users.DeleteUser.DeleteUserCommand>()
             .ConstructUsing(id => new Application.Users.DeleteUser.DeleteUserCommand(id));
     }
 }

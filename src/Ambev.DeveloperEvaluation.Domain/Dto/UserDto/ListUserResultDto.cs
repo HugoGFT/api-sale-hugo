@@ -1,20 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Ambev.DeveloperEvaluation.Domain.Entities;
-
-namespace Ambev.DeveloperEvaluation.Domain.Dto.UserDto
+﻿namespace Ambev.DeveloperEvaluation.Domain.Dto.UserDto
 {
     public class ListUserResultDto
     {
-        public ListUserResultDto(int total, IEnumerable<Entities.User> users) 
+        public ListUserResultDto(int totalItems, int totalPages, int currentPage, IEnumerable<Entities.User> users)
         {
-            Total = total;
-            Users = users;
+            TotalItems = totalItems;
+            Data = users;
+            TotalPages = totalPages;
+            CurrentPage = currentPage;
         }
-        public int Total { get; set; }
-        public IEnumerable<Entities.User> Users { get; set; } = new List<Entities.User>();
+        public int TotalItems { get; set; }
+        public IEnumerable<Entities.User> Data { get; set; } = new List<Entities.User>();
+        public int TotalPages { get; set; }
+        public int CurrentPage { get; set; }
     }
 }

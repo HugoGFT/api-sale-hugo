@@ -6,7 +6,7 @@ namespace Ambev.DeveloperEvaluation.WebApi.Features.Products.DeleteProduct;
 public class DeleteProductRequest
 {
     /// <summary>
-    /// The unique identifier of the Product to delete
+    /// The identifier of the Product to delete
     /// </summary>
-    public Guid Id { get; set; }
+    public int Id { get; set; }
 }

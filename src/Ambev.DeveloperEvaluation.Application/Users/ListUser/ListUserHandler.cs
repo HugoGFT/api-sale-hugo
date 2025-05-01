@@ -1,14 +1,7 @@
-﻿using Ambev.DeveloperEvaluation.Application.Users.GetUser;
-using Ambev.DeveloperEvaluation.Domain.Dto.User;
+﻿using Ambev.DeveloperEvaluation.Domain.Dto.User;
 using Ambev.DeveloperEvaluation.Domain.Repositories;
 using AutoMapper;
-using FluentValidation;
 using MediatR;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Ambev.DeveloperEvaluation.Application.Users.ListUser
 {
@@ -22,7 +15,6 @@ namespace Ambev.DeveloperEvaluation.Application.Users.ListUser
         /// </summary>
         /// <param name="userRepository">The user repository</param>
         /// <param name="mapper">The AutoMapper instance</param>
-        /// <param name="validator">The validator for GetUserCommand</param>
         public ListUserHandler(
             IUserRepository userRepository,
             IMapper mapper)

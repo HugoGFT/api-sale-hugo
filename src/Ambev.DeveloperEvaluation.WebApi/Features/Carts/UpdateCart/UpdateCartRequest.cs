@@ -1,4 +1,4 @@
-﻿using Ambev.DeveloperEvaluation.Domain.Enums;
+﻿using Ambev.DeveloperEvaluation.Domain.Dto.CartDto;
 
 namespace Ambev.DeveloperEvaluation.WebApi.Features.Carts.UpdateCart;
 
@@ -7,19 +7,8 @@ namespace Ambev.DeveloperEvaluation.WebApi.Features.Carts.UpdateCart;
 /// </summary>
 public class UpdateCartRequest
 {
-
-    /// <summary>
-    /// Gets or sets the password. Must meet security requirements.
-    /// </summary>
-    public string Password { get; set; } = string.Empty;
-
-    /// <summary>
-    /// Gets or sets the phone number in format (XX) XXXXX-XXXX.
-    /// </summary>
-    public string Phone { get; set; } = string.Empty;
-
-    /// <summary>
-    /// Gets or sets the email address. Must be a valid email format.
-    /// </summary>
-    public string Email { get; set; } = string.Empty;
+    public int Id { get; set; }
+    public int UserID { get; set; }
+    public string Date { get; set; } = string.Empty;
+    public List<ProductCartDto> Products { get; set; } = new List<ProductCartDto>();
 }

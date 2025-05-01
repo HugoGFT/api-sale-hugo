@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Ambev.DeveloperEvaluation.Application.Carts.GetCart
+﻿namespace Ambev.DeveloperEvaluation.Application.Carts.GetCart
 {
-    internal class GetCartProfile
+    public class GetCartProfile
     {
     }
 }

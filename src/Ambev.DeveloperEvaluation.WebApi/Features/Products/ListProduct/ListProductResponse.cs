@@ -1,4 +1,4 @@
-using Ambev.DeveloperEvaluation.Domain.Enums;
+using Ambev.DeveloperEvaluation.WebApi.Features.Products.GetProduct;
 
 namespace Ambev.DeveloperEvaluation.WebApi.Features.Products.ListProduct;
 
@@ -7,23 +7,8 @@ namespace Ambev.DeveloperEvaluation.WebApi.Features.Products.ListProduct;
 /// </summary>
 public class ListProductResponse
 {
-    /// <summary>
-    /// The unique identifier of the list Product
-    /// </summary>
-    public Guid Id { get; set; }
-
-    /// <summary>
-    /// The Product's full name
-    /// </summary>
-    public string Name { get; set; } = string.Empty;
-
-    /// <summary>
-    /// The Product's email address
-    /// </summary>
-    public string Email { get; set; } = string.Empty;
-
-    /// <summary>
-    /// The Product's phone number
-    /// </summary>
-    public string Phone { get; set; } = string.Empty;
+    public int TotalItems { get; set; }
+    public IEnumerable<GetProductResponse> Data { get; set; } = new List<GetProductResponse>();
+    public int TotalPages { get; set; }
+    public int CurrentPage { get; set; }
 }

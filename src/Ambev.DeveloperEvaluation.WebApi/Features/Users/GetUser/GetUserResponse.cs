@@ -1,3 +1,4 @@
+using Ambev.DeveloperEvaluation.Domain.Dto.UserDto;
 using Ambev.DeveloperEvaluation.Domain.Enums;
 
 namespace Ambev.DeveloperEvaluation.WebApi.Features.Users.GetUser;
@@ -10,12 +11,12 @@ public class GetUserResponse
     /// <summary>
     /// The unique identifier of the user
     /// </summary>
-    public Guid Id { get; set; }
+    public int Id { get; set; }
 
     /// <summary>
     /// The user's full name
     /// </summary>
-    public string Name { get; set; } = string.Empty;
+    public NameDto Name { get; set; } = new NameDto();
 
     /// <summary>
     /// The user's email address
@@ -36,4 +37,9 @@ public class GetUserResponse
     /// The current status of the user
     /// </summary>
     public UserStatus Status { get; set; }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    public AddressDto Address { get; set; } = new AddressDto();
 }

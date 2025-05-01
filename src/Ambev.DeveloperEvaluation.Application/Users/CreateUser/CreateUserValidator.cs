@@ -9,25 +9,56 @@ namespace Ambev.DeveloperEvaluation.Application.Users.CreateUser;
 /// </summary>
 public class CreateUserCommandValidator : AbstractValidator<CreateUserCommand>
 {
-    /// <summary>
-    /// Initializes a new instance of the CreateUserCommandValidator with defined validation rules.
-    /// </summary>
-    /// <remarks>
-    /// Validation rules include:
-    /// - Email: Must be in valid format (using EmailValidator)
-    /// - Username: Required, must be between 3 and 50 characters
-    /// - Password: Must meet security requirements (using PasswordValidator)
-    /// - Phone: Must match international format (+X XXXXXXXXXX)
-    /// - Status: Cannot be set to Unknown
-    /// - Role: Cannot be set to None
-    /// </remarks>
     public CreateUserCommandValidator()
     {
-        RuleFor(user => user.Email).SetValidator(new EmailValidator());
-        RuleFor(user => user.Username).NotEmpty().Length(3, 50);
-        RuleFor(user => user.Password).SetValidator(new PasswordValidator());
-        RuleFor(user => user.Phone).Matches(@"^\+?[1-9]\d{1,14}$");
-        RuleFor(user => user.Status).NotEqual(UserStatus.Unknown);
-        RuleFor(user => user.Role).NotEqual(UserRole.None);
+        RuleFor(user => user.Email)
+            .SetValidator(new EmailValidator())
+            .WithMessage("Invalid email format.");
+
+        RuleFor(user => user.Username)
+            .NotEmpty()
+            .WithMessage("Username is required.")
+            .Length(3, 50)
+            .WithMessage("Username must be between 3 and 50 characters.");
+
+        RuleFor(user => user.Password)
+            .SetValidator(new PasswordValidator())
+            .WithMessage("Password does not meet security requirements.");
+
+        RuleFor(user => user.Phone)
+            .Matches(@"^\+?[1-9]\d{1,14}$")
+            .WithMessage("Phone number must match the international format (+X XXXXXXXXXX).");
+
+        RuleFor(user => user.Status)
+            .NotEqual(UserStatus.Unknown)
+            .WithMessage("User status cannot be 'Unknown'.");
+
+        RuleFor(user => user.Role)
+            .NotEqual(UserRole.None)
+            .WithMessage("User role cannot be 'None'.");
+
+        RuleFor(user => user.Name.Firstname)
+            .NotEmpty()
+            .WithMessage("Firstname is required.");
+
+        RuleFor(user => user.Name.Lastname)
+            .NotEmpty()
+            .WithMessage("Lastname is required.");
+
+        RuleFor(user => user.Address.Street)
+            .NotEmpty()
+            .WithMessage("Street is required.");
+
+        RuleFor(user => user.Address.City)
+            .NotEmpty()
+            .WithMessage("City is required.");
+
+        RuleFor(user => user.Address.Number)
+            .NotNull()
+            .WithMessage("Number is required.");
+
+        RuleFor(user => user.Address.ZipCode)
+            .NotEmpty()
+            .WithMessage("ZipCode is required.");
     }
 }

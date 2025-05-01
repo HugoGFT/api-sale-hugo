@@ -1,4 +1,5 @@
 ﻿using Ambev.DeveloperEvaluation.Common.Validation;
+using Ambev.DeveloperEvaluation.Domain.Dto.UserDto;
 using Ambev.DeveloperEvaluation.Domain.Enums;
 using MediatR;
 
@@ -50,7 +51,8 @@ public class CreateUserCommand : IRequest<CreateUserResult>
     /// </summary>
     public UserRole Role { get; set; }
 
-
+    public NameDto Name { get; set; } = new NameDto();
+    public AddressDto Address { get; set; } = new AddressDto();
     public ValidationResultDetail Validate()
     {
         var validator = new CreateUserCommandValidator();

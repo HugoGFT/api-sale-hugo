@@ -1,12 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Ambev.DeveloperEvaluation.Application.Carts.DeleteCart;
+using FluentValidation;
 
 namespace Ambev.DeveloperEvaluation.Application.Carts.DeleteCart
 {
-    internal class DeleteCartValidator
+    public class DeleteCartValidator : AbstractValidator<DeleteCartCommand>
     {
+        /// <summary>
+        /// Initializes validation rules for DeleteCartCommand
+        /// </summary>
+        public DeleteCartValidator()
+        {
+            RuleFor(x => x.Id)
+                .NotEmpty()
+                .WithMessage("Cart ID is required");
+        }
     }
 }

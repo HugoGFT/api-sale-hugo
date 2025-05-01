@@ -1,5 +1,4 @@
-﻿using Ambev.DeveloperEvaluation.Domain.Enums;
-using Ambev.DeveloperEvaluation.Domain.Validation;
+﻿using Ambev.DeveloperEvaluation.Domain.Validation;
 using FluentValidation;
 
 namespace Ambev.DeveloperEvaluation.WebApi.Features.Carts.CreateCart;
@@ -9,25 +8,36 @@ namespace Ambev.DeveloperEvaluation.WebApi.Features.Carts.CreateCart;
 /// </summary>
 public class CreateCartRequestValidator : AbstractValidator<CreateCartRequest>
 {
-    /// <summary>
-    /// Initializes a new instance of the CreateCartRequestValidator with defined validation rules.
-    /// </summary>
-    /// <remarks>
-    /// Validation rules include:
-    /// - Email: Must be valid format (using EmailValidator)
-    /// - Cartname: Required, length between 3 and 50 characters
-    /// - Password: Must meet security requirements (using PasswordValidator)
-    /// - Phone: Must match international format (+X XXXXXXXXXX)
-    /// - Status: Cannot be Unknown
-    /// - Role: Cannot be None
-    /// </remarks>
+
     public CreateCartRequestValidator()
     {
-        RuleFor(Cart => Cart.Email).SetValidator(new EmailValidator());
-        RuleFor(Cart => Cart.Cartname).NotEmpty().Length(3, 50);
-        RuleFor(Cart => Cart.Password).SetValidator(new PasswordValidator());
-        RuleFor(Cart => Cart.Phone).Matches(@"^\+?[1-9]\d{1,14}$");
-        //RuleFor(Cart => Cart.Status).NotEqual(CartStatus.Unknown);
-        //RuleFor(Cart => Cart.Role).NotEqual(CartRole.None);
+        RuleFor(request => request.UserID)
+            .GreaterThan(0)
+            .WithMessage("UserID deve ser maior que 0.");
+
+        RuleFor(request => request.Date)
+            .NotEmpty()
+            .WithMessage("A data é obrigatória.")
+            .Must(date => DateTime.TryParse(date, out _))
+            .WithMessage("A data deve estar em um formato válido.");
+
+        RuleFor(request => request.Products)
+            .NotEmpty()
+            .WithMessage("A lista de produtos não pode estar vazia.")
+            .ForEach(productRule =>
+            {
+                productRule.ChildRules(product =>
+                {
+                    product.RuleFor(p => p.ProductId)
+                        .GreaterThan(0)
+                        .WithMessage("ProductId deve ser maior que 0.");
+
+                    product.RuleFor(p => p.Quantity)
+                        .GreaterThan(0)
+                        .WithMessage("Quantity deve ser maior que 0.")
+                        .LessThan(20)
+                        .WithMessage("Quantity deve ser maior que 20.");
+                });
+            });
     }
 }

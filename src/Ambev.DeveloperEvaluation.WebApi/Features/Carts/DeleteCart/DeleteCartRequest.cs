@@ -8,5 +8,5 @@ public class DeleteCartRequest
     /// <summary>
     /// The unique identifier of the cart to delete
     /// </summary>
-    public Guid Id { get; set; }
+    public int Id { get; set; }
 }

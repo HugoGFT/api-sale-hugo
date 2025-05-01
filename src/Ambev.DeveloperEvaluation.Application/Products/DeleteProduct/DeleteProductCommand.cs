@@ -1,12 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using MediatR;
 
 namespace Ambev.DeveloperEvaluation.Application.Products.DeleteProduct
 {
-    internal class DeleteProductCommand
+    public record DeleteProductCommand : IRequest<DeleteProductResponse>
     {
+        /// <summary>
+        /// The unique identifier of the Product to delete
+        /// </summary>
+        public int Id { get; }
+
+        /// <summary>
+        /// Initializes a new instance of DeleteProductCommand
+        /// </summary>
+        /// <param name="id">The ID of the Product to delete</param>
+        public DeleteProductCommand(int id)
+        {
+            Id = id;
+        }
     }
 }

@@ -1,6 +1,4 @@
-﻿using Ambev.DeveloperEvaluation.Domain.Enums;
-
-namespace Ambev.DeveloperEvaluation.WebApi.Features.Carts.ListCart;
+﻿namespace Ambev.DeveloperEvaluation.WebApi.Features.Carts.ListCart;
 
 /// <summary>
 /// Represents a request to create a new Cart in the system.
