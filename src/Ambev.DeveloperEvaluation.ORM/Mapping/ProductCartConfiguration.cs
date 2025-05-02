@@ -21,22 +21,6 @@ namespace Ambev.DeveloperEvaluation.ORM.Mapping
 
             builder.Property(pc => pc.Count)
                 .IsRequired();
-
-            builder.Property(pc => pc.Price)
-                .HasColumnType("decimal(18,2)")
-                .IsRequired();
-
-            builder.Property(pc => pc.Total)
-                .HasColumnType("decimal(18,2)")
-                .IsRequired();
-
-            builder.Property(pc => pc.Discount)
-                .HasColumnType("decimal(18,2)")
-                .IsRequired();
-
-            builder.Property(pc => pc.TotalWithDiscount)
-                .HasColumnType("decimal(18,2)")
-                .IsRequired();
         }
     }
 }

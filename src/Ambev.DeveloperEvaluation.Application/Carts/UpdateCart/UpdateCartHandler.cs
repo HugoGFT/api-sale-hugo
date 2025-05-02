@@ -8,7 +8,8 @@ namespace Ambev.DeveloperEvaluation.Application.Carts.UpdateCart
 {
     public class UpdateCartHandler : IRequestHandler<UpdateCartCommand, UpdateCartResult>
     {
-        private readonly ICartRepository _CartRepository;
+        private readonly ICartRepository _cartRepository;
+        private readonly IProductCartRepository _productCartRepository;
         private readonly IMapper _mapper;
 
         /// <summary>
@@ -17,10 +18,11 @@ namespace Ambev.DeveloperEvaluation.Application.Carts.UpdateCart
         /// <param name="CartRepository">The Cart repository</param>
         /// <param name="mapper">The AutoMapper instance</param>
         /// <param name="validator">The validator for UpdateCartCommand</param>
-        public UpdateCartHandler(ICartRepository CartRepository, IMapper mapper)
+        public UpdateCartHandler(ICartRepository cartRepository, IMapper mapper, IProductCartRepository productCartRepository)
         {
-            _CartRepository = CartRepository;
+            _cartRepository = cartRepository;
             _mapper = mapper;
+            _productCartRepository = productCartRepository;
         }
 
         /// <summary>
@@ -37,13 +39,35 @@ namespace Ambev.DeveloperEvaluation.Application.Carts.UpdateCart
             if (!validationResult.IsValid)
                 throw new ValidationException(validationResult.Errors);
 
-            var existingCart = await _CartRepository.GetByIdAsync(command.Id, cancellationToken);
+            var existingCart = await _cartRepository.GetByIdAsync(command.Id, cancellationToken);
             if (existingCart == null)
                 throw new InvalidOperationException($"Cart with Id {command.Id} not exists");
 
             var Cart = _mapper.Map<Cart>(command);
 
-            var updatedCart = await _CartRepository.UpdateAsync(Cart, cancellationToken);
+            var updatedCart = await _cartRepository.UpdateAsync(Cart, cancellationToken);
+            var productCarts = _mapper.Map<List<ProductCart>>(command.Products);
+            var existingProductCarts = await _productCartRepository.GetByCartIdAsync(updatedCart.Id, cancellationToken);
+
+            foreach (var productCart in productCarts)
+            {
+                var existingProductCart = await _productCartRepository.GetByIdAsync(productCart.Id, cancellationToken);
+                if (existingProductCart != null)
+                {
+                    productCart.IdCart = updatedCart.Id;
+                    await _productCartRepository.UpdateAsync(productCart, cancellationToken);
+                }
+                else
+                {
+                    productCart.IdCart = updatedCart.Id;
+                    await _productCartRepository.CreateAsync(productCart, cancellationToken);
+                }
+            }
+            var deleteProductCarts = existingProductCarts.Where(o => !productCarts.Any(p => p.IdProduct == o.IdProduct)).ToList();
+            foreach (var productCart in deleteProductCarts)
+            {
+                await _productCartRepository.DeleteAsync(productCart.Id, cancellationToken);
+            }
             var result = _mapper.Map<UpdateCartResult>(updatedCart);
             return result;
         }

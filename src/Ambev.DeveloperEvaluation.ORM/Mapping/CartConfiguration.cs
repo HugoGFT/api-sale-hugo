@@ -22,18 +22,6 @@ namespace Ambev.DeveloperEvaluation.Infrastructure.ORM.Mapping
                    .IsRequired()
                    .HasMaxLength(50);
 
-            builder.Property(c => c.TotalPrice)
-                   .IsRequired()
-                   .HasColumnType("decimal(18,2)");
-
-            builder.Property(c => c.TotalDescount)
-                   .IsRequired()
-                   .HasColumnType("decimal(18,2)");
-
-            builder.Property(c => c.TotalPriceWithDescount)
-                   .IsRequired()
-                   .HasColumnType("decimal(18,2)");
-
             // Add any additional configurations if needed
         }
     }
