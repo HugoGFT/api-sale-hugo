@@ -1,5 +1,4 @@
-﻿using Ambev.DeveloperEvaluation.Application.Carts.ListCart;
-using Ambev.DeveloperEvaluation.Domain.Dto.CartDto;
+﻿using Ambev.DeveloperEvaluation.Domain.Dto.CartDto;
 using MediatR;
 
 namespace Ambev.DeveloperEvaluation.Application.Carts.CreateCart

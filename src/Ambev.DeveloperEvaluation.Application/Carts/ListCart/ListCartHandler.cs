@@ -8,6 +8,7 @@ namespace Ambev.DeveloperEvaluation.Application.Carts.ListCart
     public class ListCartHandler : IRequestHandler<ListCartCommand, ListCartResult>
     {
         private readonly ICartRepository _CartRepository;
+        private readonly IProductCartRepository _productCartRepository;
         private readonly IMapper _mapper;
 
         /// <summary>
@@ -17,10 +18,12 @@ namespace Ambev.DeveloperEvaluation.Application.Carts.ListCart
         /// <param name="mapper">The AutoMapper instance</param>
         public ListCartHandler(
             ICartRepository CartRepository,
-            IMapper mapper)
+            IMapper mapper,
+            IProductCartRepository productCartRepository)
         {
             _CartRepository = CartRepository;
             _mapper = mapper;
+            _productCartRepository = productCartRepository;
         }
 
         /// <summary>
@@ -34,7 +37,19 @@ namespace Ambev.DeveloperEvaluation.Application.Carts.ListCart
             var filter = _mapper.Map<ListCartFilter>(request);
             var Cart = await _CartRepository.GetByFilterAsync(filter, cancellationToken);
 
-            return _mapper.Map<ListCartResult>(Cart);
+            if (Cart == null)
+            {
+                throw new Exception("Cart not found");
+            }
+
+            var result = _mapper.Map<ListCartResult>(Cart);
+            foreach (var productCart in result.Data)
+            {
+                var aux = await _productCartRepository.GetByCartIdAsync(productCart.Id, cancellationToken);
+                productCart.Products = _mapper.Map<List<ProductCartDto>>(await _productCartRepository.GetByCartIdAsync(productCart.Id, cancellationToken));
+
+            }
+            return result;
         }
     }
 }

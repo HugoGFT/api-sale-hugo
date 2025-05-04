@@ -1,4 +1,5 @@
-﻿using Ambev.DeveloperEvaluation.Domain.Repositories;
+﻿using Ambev.DeveloperEvaluation.Domain.Dto.CartDto;
+using Ambev.DeveloperEvaluation.Domain.Repositories;
 using AutoMapper;
 using FluentValidation;
 using MediatR;
@@ -8,20 +9,17 @@ namespace Ambev.DeveloperEvaluation.Application.Carts.GetCart
     public class GetCartHandler : IRequestHandler<GetCartCommand, GetCartResult>
     {
         private readonly ICartRepository _CartRepository;
+        private readonly IProductCartRepository _productCartRepository;
         private readonly IMapper _mapper;
 
-        /// <summary>
-        /// Initializes a new instance of GetCartHandler
-        /// </summary>
-        /// <param name="CartRepository">The Cart repository</param>
-        /// <param name="mapper">The AutoMapper instance</param>
-        /// <param name="validator">The validator for GetCartCommand</param>
         public GetCartHandler(
             ICartRepository CartRepository,
-            IMapper mapper)
+            IMapper mapper,
+            IProductCartRepository productCartRepository)
         {
             _CartRepository = CartRepository;
             _mapper = mapper;
+            _productCartRepository = productCartRepository;
         }
 
         /// <summary>
@@ -41,8 +39,9 @@ namespace Ambev.DeveloperEvaluation.Application.Carts.GetCart
             var Cart = await _CartRepository.GetByIdAsync(request.Id, cancellationToken);
             if (Cart == null)
                 throw new KeyNotFoundException($"Cart with ID {request.Id} not found");
-
-            return _mapper.Map<GetCartResult>(Cart);
+            var result = _mapper.Map<GetCartResult>(Cart);
+            result.Products = _mapper.Map<List<ProductCartDto>>(await _productCartRepository.GetByCartIdAsync(request.Id, cancellationToken));
+            return result;
         }
     }
 }

@@ -40,9 +40,9 @@ namespace Ambev.DeveloperEvaluation.Application.Users.UpdateUser
             if (!validationResult.IsValid)
                 throw new ValidationException(validationResult.Errors);
 
-            var existingUser = await _userRepository.GetByEmailAsync(command.Email, cancellationToken);
+            var existingUser = await _userRepository.GetByIdAsync(command.Id, cancellationToken);
             if (existingUser == null)
-                throw new InvalidOperationException($"User with email {command.Email} not exists");
+                throw new InvalidOperationException($"User with Id {command.Id} not exists");
 
             var user = _mapper.Map<User>(command);
             user.Password = _passwordHasher.HashPassword(command.Password);

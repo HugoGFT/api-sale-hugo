@@ -1,4 +1,5 @@
-﻿using Ambev.DeveloperEvaluation.Domain.Entities;
+﻿using Ambev.DeveloperEvaluation.Domain.Dto.CartDto;
+using Ambev.DeveloperEvaluation.Domain.Entities;
 using Ambev.DeveloperEvaluation.Domain.Repositories;
 using AutoMapper;
 using FluentValidation;
@@ -45,10 +46,12 @@ namespace Ambev.DeveloperEvaluation.Application.Carts.CreateCart
             var productCarts = _mapper.Map<List<ProductCart>>(command.Products);
             foreach (var productCart in productCarts)
             {
+                productCart.IdUser = command.UserID;
                 productCart.IdCart = createdCart.Id;
                 await _productCartRepository.CreateAsync(productCart, cancellationToken);
             }
             var result = _mapper.Map<CreateCartResult>(createdCart);
+            result.Products = _mapper.Map<List<ProductCartDto>>(await _productCartRepository.GetByCartIdAsync(result.Id, cancellationToken));
             return result;
         }
     }

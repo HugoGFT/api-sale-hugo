@@ -1,5 +1,4 @@
-﻿using Ambev.DeveloperEvaluation.Application.Carts.DeleteCart;
-using FluentValidation;
+﻿using FluentValidation;
 
 namespace Ambev.DeveloperEvaluation.Application.Carts.DeleteCart
 {

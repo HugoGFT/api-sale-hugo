@@ -1,4 +1,6 @@
+using Ambev.DeveloperEvaluation.Application.Carts.GetCart;
 using Ambev.DeveloperEvaluation.Application.Carts.ListCart;
+using Ambev.DeveloperEvaluation.WebApi.Features.Carts.GetCart;
 using AutoMapper;
 
 namespace Ambev.DeveloperEvaluation.WebApi.Features.Carts.ListCart;
@@ -15,5 +17,6 @@ public class ListCartProfile : Profile
     {
         CreateMap<ListCartRequest, ListCartCommand>();
         CreateMap<ListCartResult, ListCartResponse>();
+        CreateMap<GetCartResult, GetCartResponse>();
     }
 }

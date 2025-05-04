@@ -1,5 +1,4 @@
-﻿using Ambev.DeveloperEvaluation.Application.Products.DeleteProduct;
-using FluentValidation;
+﻿using FluentValidation;
 
 namespace Ambev.DeveloperEvaluation.Application.Products.DeleteProduct
 {

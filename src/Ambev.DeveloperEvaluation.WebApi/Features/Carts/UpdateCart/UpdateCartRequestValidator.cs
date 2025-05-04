@@ -1,5 +1,4 @@
-﻿using Ambev.DeveloperEvaluation.Domain.Validation;
-using FluentValidation;
+﻿using FluentValidation;
 
 namespace Ambev.DeveloperEvaluation.WebApi.Features.Carts.UpdateCart;
 
@@ -11,10 +10,6 @@ public class UpdateCartRequestValidator : AbstractValidator<UpdateCartRequest>
 
     public UpdateCartRequestValidator()
     {
-        RuleFor(request => request.Id)
-            .GreaterThan(0)
-            .WithMessage("Id deve ser maior que 0.");
-
         RuleFor(request => request.UserID)
             .GreaterThan(0)
             .WithMessage("UserID deve ser maior que 0.");

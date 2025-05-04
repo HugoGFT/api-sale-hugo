@@ -14,6 +14,6 @@ public class UpdateUserProfile : Profile
     public UpdateUserProfile()
     {
         CreateMap<UpdateUserRequest, UpdateUserCommand>();
-        CreateMap<UpdateUserRequest, UpdateUserResponse>();
+        CreateMap<UpdateUserResult, UpdateUserResponse>();
     }
 }

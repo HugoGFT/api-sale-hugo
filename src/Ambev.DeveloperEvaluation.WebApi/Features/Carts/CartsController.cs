@@ -70,10 +70,10 @@ namespace Ambev.DeveloperEvaluation.WebApi.Features.Carts
         /// <param name="request">The Cart update request</param>
         /// <param name="cancellationToken">Cancellation token</param>
         /// <returns>The created Cart details</returns>
-        [HttpPut]
+        [HttpPut("{id}")]
         [ProducesResponseType(typeof(ApiResponseWithData<UpdateCartResponse>), StatusCodes.Status201Created)]
         [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> UpdateCart([FromBody] UpdateCartRequest request, CancellationToken cancellationToken)
+        public async Task<IActionResult> UpdateCart(int id, [FromBody] UpdateCartRequest request, CancellationToken cancellationToken)
         {
             var validator = new UpdateCartRequestValidator();
             var validationResult = await validator.ValidateAsync(request, cancellationToken);
@@ -82,6 +82,7 @@ namespace Ambev.DeveloperEvaluation.WebApi.Features.Carts
                 return BadRequest(validationResult.Errors);
 
             var command = _mapper.Map<UpdateCartCommand>(request);
+            command.Id = id;
             var response = await _mediator.Send(command, cancellationToken);
 
             return Created(string.Empty, new ApiResponseWithData<UpdateCartResponse>
@@ -132,7 +133,7 @@ namespace Ambev.DeveloperEvaluation.WebApi.Features.Carts
         [ProducesResponseType(typeof(ApiResponseWithData<ListCartResponse>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status404NotFound)]
-        public async Task<IActionResult> GetListCart(int page, int size, string order, CancellationToken cancellationToken)
+        public async Task<IActionResult> GetListCart(int? page, int? size, string? order, CancellationToken cancellationToken)
         {
             var command = new ListCartCommand(page, size, order);
             var response = await _mediator.Send(command, cancellationToken);

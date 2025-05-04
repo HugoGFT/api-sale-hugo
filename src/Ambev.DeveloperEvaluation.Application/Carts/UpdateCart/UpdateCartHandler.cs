@@ -1,8 +1,10 @@
-﻿using Ambev.DeveloperEvaluation.Domain.Entities;
+﻿using Ambev.DeveloperEvaluation.Domain.Dto.CartDto;
+using Ambev.DeveloperEvaluation.Domain.Entities;
 using Ambev.DeveloperEvaluation.Domain.Repositories;
 using AutoMapper;
 using FluentValidation;
 using MediatR;
+using System.Linq;
 
 namespace Ambev.DeveloperEvaluation.Application.Carts.UpdateCart
 {
@@ -51,24 +53,30 @@ namespace Ambev.DeveloperEvaluation.Application.Carts.UpdateCart
 
             foreach (var productCart in productCarts)
             {
-                var existingProductCart = await _productCartRepository.GetByIdAsync(productCart.Id, cancellationToken);
+                productCart.IdUser = command.UserID;
+                productCart.IdCart = updatedCart.Id;
+                var existingProductCart = existingProductCarts?.FirstOrDefault( x => x?.IdProduct == productCart.IdProduct);
                 if (existingProductCart != null)
                 {
-                    productCart.IdCart = updatedCart.Id;
+                    productCart.Id = existingProductCart.Id;
                     await _productCartRepository.UpdateAsync(productCart, cancellationToken);
                 }
                 else
                 {
-                    productCart.IdCart = updatedCart.Id;
                     await _productCartRepository.CreateAsync(productCart, cancellationToken);
                 }
             }
-            var deleteProductCarts = existingProductCarts.Where(o => !productCarts.Any(p => p.IdProduct == o.IdProduct)).ToList();
-            foreach (var productCart in deleteProductCarts)
+            var deleteProductCarts = existingProductCarts?.Where(o => !productCarts.Any(p => p.IdProduct == o?.IdProduct)).ToList();
+            if (deleteProductCarts?.Any() == true)
             {
-                await _productCartRepository.DeleteAsync(productCart.Id, cancellationToken);
+                foreach (var productCart in deleteProductCarts)
+                {
+                    if (productCart != null)
+                        await _productCartRepository.DeleteAsync(productCart.Id, cancellationToken);
+                }
             }
             var result = _mapper.Map<UpdateCartResult>(updatedCart);
+            result.Products = _mapper.Map<List<ProductCartDto>>(await _productCartRepository.GetByCartIdAsync(result.Id, cancellationToken));
             return result;
         }
     }

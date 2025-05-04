@@ -1,5 +1,4 @@
-﻿using Ambev.DeveloperEvaluation.Application.Users.GetUser;
-using FluentValidation;
+﻿using FluentValidation;
 
 namespace Ambev.DeveloperEvaluation.Application.Products.GetProduct
 {

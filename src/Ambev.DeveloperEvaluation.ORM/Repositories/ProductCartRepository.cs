@@ -38,7 +38,7 @@ namespace Ambev.DeveloperEvaluation.ORM.Repositories
         /// <returns>The ProductCart if found, null otherwise</returns>
         public async Task<ProductCart?> GetByIdAsync(int id, CancellationToken cancellationToken = default)
         {
-            return await _context.ProductCarts.FirstOrDefaultAsync(o => o.Id == id, cancellationToken);
+            return await _context.ProductCarts.AsNoTracking().FirstOrDefaultAsync(o => o.Id == id, cancellationToken);
         }
 
         /// <summary>
@@ -49,7 +49,7 @@ namespace Ambev.DeveloperEvaluation.ORM.Repositories
         /// <returns>The ProductCart if found, null otherwise</returns>
         public async Task<List<ProductCart?>> GetByCartIdAsync(int idCart, CancellationToken cancellationToken = default)
         {
-            return await _context.ProductCarts
+            return await _context.ProductCarts.AsNoTracking()
                 .Where(u => u.IdCart == idCart)
                 .Cast<ProductCart?>()
                 .ToListAsync(cancellationToken);

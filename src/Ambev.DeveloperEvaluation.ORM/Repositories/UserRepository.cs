@@ -43,7 +43,7 @@ public class UserRepository : IUserRepository
     /// <returns>The user if found, null otherwise</returns>
     public async Task<User?> GetByIdAsync(int id, CancellationToken cancellationToken = default)
     {
-        return await _context.Users.FirstOrDefaultAsync(o => o.Id == id, cancellationToken);
+        return await _context.Users.AsNoTracking().FirstOrDefaultAsync(o => o.Id == id, cancellationToken);
     }
 
     /// <summary>
@@ -54,7 +54,7 @@ public class UserRepository : IUserRepository
     /// <returns>The user if found, null otherwise</returns>
     public async Task<User?> GetByEmailAsync(string email, CancellationToken cancellationToken = default)
     {
-        return await _context.Users
+        return await _context.Users.AsNoTracking()
             .FirstOrDefaultAsync(u => u.Email == email, cancellationToken);
     }
 
@@ -96,9 +96,9 @@ public class UserRepository : IUserRepository
     /// <returns></returns>
     public async Task<ListUserResultDto> GetByFilterAsync(ListUserFilter filter, CancellationToken cancellationToken = default)
     {
-        var totalItems = await _context.Users.CountAsync(cancellationToken);
-        var data = await _context.Users
-            .Skip(filter.Page * filter.PageSize)
+        var totalItems = await _context.Users.AsNoTracking().CountAsync(cancellationToken);
+        var data = await _context.Users.AsNoTracking()
+            .Skip((filter.Page - 1) * filter.PageSize)
             .Take(filter.PageSize)
             .ToListAsync(cancellationToken);
         var totalPages = (int)Math.Ceiling((double)totalItems / filter.PageSize);

@@ -70,10 +70,10 @@ namespace Ambev.DeveloperEvaluation.WebApi.Features.Products
         /// <param name="request">The Product update request</param>
         /// <param name="cancellationToken">Cancellation token</param>
         /// <returns>The created Product details</returns>
-        [HttpPut]
+        [HttpPut("{id}")]
         [ProducesResponseType(typeof(ApiResponseWithData<UpdateProductResponse>), StatusCodes.Status201Created)]
         [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> UpdateProduct([FromBody] UpdateProductRequest request, CancellationToken cancellationToken)
+        public async Task<IActionResult> UpdateProduct(int id, [FromBody] UpdateProductRequest request, CancellationToken cancellationToken)
         {
             var validator = new UpdateProductRequestValidator();
             var validationResult = await validator.ValidateAsync(request, cancellationToken);
@@ -82,6 +82,7 @@ namespace Ambev.DeveloperEvaluation.WebApi.Features.Products
                 return BadRequest(validationResult.Errors);
 
             var command = _mapper.Map<UpdateProductCommand>(request);
+            command.Id = id;
             var response = await _mediator.Send(command, cancellationToken);
 
             return Created(string.Empty, new ApiResponseWithData<UpdateProductResponse>
@@ -132,7 +133,7 @@ namespace Ambev.DeveloperEvaluation.WebApi.Features.Products
         [ProducesResponseType(typeof(ApiResponseWithData<ListProductResponse>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status404NotFound)]
-        public async Task<IActionResult> GetListProduct(int page, int size, string order, CancellationToken cancellationToken)
+        public async Task<IActionResult> GetListProduct(int? page, int? size, string? order, CancellationToken cancellationToken)
         {
             var command = new ListProductCommand(page, size, order);
             var response = await _mediator.Send(command, cancellationToken);

@@ -7,7 +7,7 @@ namespace Ambev.DeveloperEvaluation.Application.Carts.DeleteCart
     public class DeleteCartHandler : IRequestHandler<DeleteCartCommand, DeleteCartResponse>
     {
         private readonly ICartRepository _cartRepository;
-        private readonly IProductCartRepository _productCartRepository; 
+        private readonly IProductCartRepository _productCartRepository;
 
         /// <summary>
         /// Initializes a new instance of DeleteCartHandler

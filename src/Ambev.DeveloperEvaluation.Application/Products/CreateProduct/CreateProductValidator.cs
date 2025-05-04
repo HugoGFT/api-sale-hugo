@@ -1,6 +1,4 @@
-﻿using Ambev.DeveloperEvaluation.Application.Products.CreateProduct;
-using Ambev.DeveloperEvaluation.Domain.Enums;
-using FluentValidation;
+﻿using FluentValidation;
 
 namespace Ambev.DeveloperEvaluation.Application.Products.CreateProduct
 {
@@ -22,11 +20,6 @@ namespace Ambev.DeveloperEvaluation.Application.Products.CreateProduct
             RuleFor(x => x.Category)
                 .NotEmpty().WithMessage("The Category field is required.")
                 .MaximumLength(50).WithMessage("The Category field must not exceed 50 characters.");
-
-            RuleFor(x => x.Image)
-                .NotEmpty().WithMessage("The Image field is required.")
-                .Must(uri => Uri.IsWellFormedUriString(uri, UriKind.Absolute))
-                .WithMessage("The Image field must be a valid URL.");
 
             RuleFor(x => x.Rate)
                 .InclusiveBetween(0, 5).WithMessage("The Rate must be between 0 and 5.");

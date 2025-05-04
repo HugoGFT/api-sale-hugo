@@ -37,10 +37,6 @@ namespace Ambev.DeveloperEvaluation.Application.Products.UpdateProduct
             if (!validationResult.IsValid)
                 throw new ValidationException(validationResult.Errors);
 
-            //var existingProduct = await _ProductRepository.GetByEmailAsync(command.Email, cancellationToken);
-            //if (existingProduct == null)
-            //    throw new InvalidOperationException($"Product with email {command.Email} not exists");
-
             var Product = _mapper.Map<Product>(command);
 
             var updatedProduct = await _ProductRepository.UpdateAsync(Product, cancellationToken);

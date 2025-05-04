@@ -32,12 +32,6 @@ namespace Ambev.DeveloperEvaluation.Application.Products.UpdateProduct
                 .MaximumLength(50)
                 .WithMessage("Product category must not exceed 50 characters.");
 
-            RuleFor(x => x.Image)
-                .NotEmpty()
-                .WithMessage("Product image URL is required.")
-                .MaximumLength(200)
-                .WithMessage("Product image URL must not exceed 200 characters.");
-
             RuleFor(x => x.Rate)
                 .InclusiveBetween(0, 5)
                 .WithMessage("Product rate must be between 0 and 5.");

@@ -1,5 +1,4 @@
-﻿using Ambev.DeveloperEvaluation.Application.Users.UpdateUser;
-using Ambev.DeveloperEvaluation.Domain.Dto.CartDto;
+﻿using Ambev.DeveloperEvaluation.Domain.Dto.CartDto;
 using MediatR;
 
 namespace Ambev.DeveloperEvaluation.Application.Carts.UpdateCart

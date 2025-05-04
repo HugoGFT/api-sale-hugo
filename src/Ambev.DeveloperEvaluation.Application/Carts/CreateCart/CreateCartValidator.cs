@@ -1,5 +1,4 @@
-﻿using Ambev.DeveloperEvaluation.Application.Carts.CreateCart;
-using FluentValidation;
+﻿using FluentValidation;
 
 namespace Ambev.DeveloperEvaluation.Application.Carts.CreateCart
 {
@@ -31,7 +30,7 @@ namespace Ambev.DeveloperEvaluation.Application.Carts.CreateCart
                         productRules.RuleFor(p => p.Quantity)
                             .GreaterThan(0)
                             .WithMessage("The product quantity must be greater than zero.")
-                            .LessThan(20)
+                            .LessThan(21)
                             .WithMessage("The product quantity must be less than 20.");
                     });
                 });

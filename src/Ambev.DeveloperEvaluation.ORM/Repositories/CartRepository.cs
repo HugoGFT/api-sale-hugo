@@ -39,7 +39,7 @@ namespace Ambev.DeveloperEvaluation.ORM.Repositories
         /// <returns>The Cart if found, null otherwise</returns>
         public async Task<Cart?> GetByIdAsync(int id, CancellationToken cancellationToken = default)
         {
-            return await _context.Carts.FirstOrDefaultAsync(o => o.Id == id, cancellationToken);
+            return await _context.Carts.AsNoTracking().FirstOrDefaultAsync(o => o.Id == id, cancellationToken);
         }
 
         /// <summary>
@@ -80,9 +80,9 @@ namespace Ambev.DeveloperEvaluation.ORM.Repositories
         /// <returns></returns>
         public async Task<ListCartResultDto> GetByFilterAsync(ListCartFilter filter, CancellationToken cancellationToken = default)
         {
-            var totalItems = await _context.Carts.CountAsync(cancellationToken);
+            var totalItems = await _context.Carts.AsNoTracking().CountAsync(cancellationToken);
             var data = await _context.Carts
-                .Skip(filter.Page * filter.PageSize)
+                .Skip((filter.Page - 1) * filter.PageSize)
                 .Take(filter.PageSize)
                 .ToListAsync(cancellationToken);
             var totalPages = (int)Math.Ceiling((double)totalItems / filter.PageSize);

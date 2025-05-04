@@ -39,7 +39,7 @@ namespace Ambev.DeveloperEvaluation.ORM.Repositories
         /// <returns>The Product if found, null otherwise</returns>
         public async Task<Product?> GetByIdAsync(int id, CancellationToken cancellationToken = default)
         {
-            return await _context.Products.FirstOrDefaultAsync(o => o.Id == id, cancellationToken);
+            return await _context.Products.AsNoTracking().FirstOrDefaultAsync(o => o.Id == id, cancellationToken);
         }
 
         /// <summary>
@@ -50,7 +50,7 @@ namespace Ambev.DeveloperEvaluation.ORM.Repositories
         /// <returns>The Product if found, null otherwise</returns>
         public async Task<Product?> GetByCategoryAsync(string cateory, CancellationToken cancellationToken = default)
         {
-            return await _context.Products
+            return await _context.Products.AsNoTracking()
                 .FirstOrDefaultAsync(u => u.Category == cateory, cancellationToken);
         }
 
@@ -92,9 +92,9 @@ namespace Ambev.DeveloperEvaluation.ORM.Repositories
         /// <returns></returns>
         public async Task<ListProductResultDto> GetByFilterAsync(ListProductFilter filter, CancellationToken cancellationToken = default)
         {
-            var totalItems = await _context.Products.CountAsync(cancellationToken);
-            var data = await _context.Products
-                .Skip(filter.Page * filter.PageSize)
+            var totalItems = await _context.Products.AsNoTracking().CountAsync(cancellationToken);
+            var data = await _context.Products.AsNoTracking()
+                .Skip((filter.Page - 1) * filter.PageSize)
                 .Take(filter.PageSize)
                 .ToListAsync(cancellationToken);
             var totalPages = (int)Math.Ceiling((double)totalItems / filter.PageSize);

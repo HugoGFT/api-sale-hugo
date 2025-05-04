@@ -1,5 +1,4 @@
-﻿using Ambev.DeveloperEvaluation.Domain.Validation;
-using FluentValidation;
+﻿using FluentValidation;
 
 namespace Ambev.DeveloperEvaluation.WebApi.Features.Products.CreateProduct;
 
@@ -37,10 +36,6 @@ public class CreateProductRequestValidator : AbstractValidator<CreateProductRequ
         RuleFor(x => x.Category)
             .NotEmpty().WithMessage("Category is required.")
             .Length(3, 50).WithMessage("Category must be between 3 and 50 characters.");
-
-        RuleFor(x => x.Image)
-            .Must(uri => Uri.TryCreate(uri, UriKind.Absolute, out _)).When(x => !string.IsNullOrEmpty(x.Image))
-            .WithMessage("Image must be a valid URL if provided.");
 
         RuleFor(x => x.Rate)
             .InclusiveBetween(0, 5).WithMessage("Rate must be between 0 and 5.");
