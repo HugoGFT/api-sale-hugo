@@ -2,6 +2,7 @@
 {
     public class ListCartResultDto
     {
+        public ListCartResultDto() { }
         public ListCartResultDto(int totalItems, int totalPages, int currentPage, IEnumerable<Entities.Cart> Carts)
         {
             TotalItems = totalItems;

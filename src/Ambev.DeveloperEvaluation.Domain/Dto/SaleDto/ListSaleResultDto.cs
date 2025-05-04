@@ -2,6 +2,7 @@
 {
     public class ListSaleResultDto
     {
+        public ListSaleResultDto() { }
         public ListSaleResultDto(int totalItems, int totalPages, int currentPage, IEnumerable<Entities.Sale> sales)
         {
             TotalItems = totalItems;

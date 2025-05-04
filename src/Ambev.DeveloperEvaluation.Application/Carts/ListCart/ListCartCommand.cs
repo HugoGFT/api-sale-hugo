@@ -4,6 +4,7 @@ namespace Ambev.DeveloperEvaluation.Application.Carts.ListCart
 {
     public class ListCartCommand : IRequest<ListCartResult>
     {
+        public ListCartCommand() { }
         public ListCartCommand(int? page, int? size, string? order)
         {
             Page = page ?? 1;

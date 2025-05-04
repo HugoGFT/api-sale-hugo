@@ -4,6 +4,7 @@ namespace Ambev.DeveloperEvaluation.Application.Users.ListUser
 {
     public class ListUserCommand : IRequest<ListUserResult>
     {
+        public ListUserCommand() { }
         public ListUserCommand(int? page, int? size, string? order)
         {
             Page = page ?? 1;

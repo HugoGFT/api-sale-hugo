@@ -4,6 +4,7 @@ namespace Ambev.DeveloperEvaluation.Application.Products.ListProduct
 {
     public class ListProductCommand : IRequest<ListProductResult>
     {
+        public ListProductCommand() { }
         public ListProductCommand(int? page, int? size, string? order)
         {
             Page = page ?? 1;

@@ -15,5 +15,25 @@
     </None>
     <None Include="docker-compose.yml" />
     <None Include=".dockerignore" />
+    <None Include="tests\Ambev.DeveloperEvaluation.Unit\Application\Carts\CreateCartHandlerTests.cs" />
+    <None Include="tests\Ambev.DeveloperEvaluation.Unit\Application\Products\CreateProductHandlerTests.cs" />
+    <None Include="tests\Ambev.DeveloperEvaluation.Unit\Application\Sales\CreateSaleHandlerTests.cs" />
+    <None Include="tests\Ambev.DeveloperEvaluation.Unit\Application\Users\CreateUserHandlerTests.cs" />
+    <None Include="tests\Ambev.DeveloperEvaluation.Unit\Application\Carts\DeleteCartHandlerTests.cs" />
+    <None Include="tests\Ambev.DeveloperEvaluation.Unit\Application\Products\DeleteProductHandlerTests.cs" />
+    <None Include="tests\Ambev.DeveloperEvaluation.Unit\Application\Sales\DeleteSaleHandlerTests.cs" />
+    <None Include="tests\Ambev.DeveloperEvaluation.Unit\Application\Users\DeleteUserHandlerTests.cs" />
+    <None Include="tests\Ambev.DeveloperEvaluation.Unit\Application\Carts\GetCartHandlerTests.cs" />
+    <None Include="tests\Ambev.DeveloperEvaluation.Unit\Application\Products\GetProductHandlerTests.cs" />
+    <None Include="tests\Ambev.DeveloperEvaluation.Unit\Application\Sales\GetSaleHandlerTests.cs" />
+    <None Include="tests\Ambev.DeveloperEvaluation.Unit\Application\Users\GetUserHandlerTests.cs" />
+    <None Include="tests\Ambev.DeveloperEvaluation.Unit\Application\Carts\ListCartHandlerTests.cs" />
+    <None Include="tests\Ambev.DeveloperEvaluation.Unit\Application\Products\ListProductHandlerTests.cs" />
+    <None Include="tests\Ambev.DeveloperEvaluation.Unit\Application\Sales\ListSaleHandlerTests.cs" />
+    <None Include="tests\Ambev.DeveloperEvaluation.Unit\Application\Users\ListUserHandlerTests.cs" />
+    <None Include="tests\Ambev.DeveloperEvaluation.Unit\Application\Carts\UpdateCartHandlerTests.cs" />
+    <None Include="tests\Ambev.DeveloperEvaluation.Unit\Application\Products\UpdateProductHandlerTests.cs" />
+    <None Include="tests\Ambev.DeveloperEvaluation.Unit\Application\Sales\UpdateSaleHandlerTests.cs" />
+    <None Include="tests\Ambev.DeveloperEvaluation.Unit\Application\Users\UpdateUserHandlerTests.cs" />
   </ItemGroup>
 </Project>
